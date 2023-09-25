@@ -44,7 +44,6 @@ resource "tls_private_key" "rsa" {
   algorithm = "RSA"
   rsa_bits  = 4096
 }
-
 resource "local_file" "ssh_key" {
   filename = "${aws_key_pair.TF_Key.key_name}.pem"
   content = tls_private_key.pk.private_key_pem
