@@ -34,10 +34,26 @@ resource "aws_security_group" "my_security_group" {
   }
 }
 
+resource "aws_key_pair" "TF_Key" {
+  key_name   = "TF_Key"
+  public_key = tls_private_key.rsa.public_key_openssh
+}
+
+# RSA key of size 4096 bits
+resource "tls_private_key" "rsa" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "local_file" "TF.key" {
+  content  = "tls_private_key.rsa.private_key_pem"
+  filename = "tfkey"
+}
 # Create AWS ec2 instance
 resource "aws_instance" "myFirstInstance" {
   ami           = var.ami_id
   instance_type = var.instance_type
+  key_name = TF_Key
   security_groups= [var.security_group]
   tags= {
     Name = var.tag_name
