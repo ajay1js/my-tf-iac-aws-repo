@@ -46,7 +46,7 @@ resource "tls_private_key" "rsa" {
 }
 resource "local_file" "ssh_key" {
   filename = "${aws_key_pair.TF_Key.key_name}.pem"
-  content = tls_private_key.pk.private_key_pem
+  content = tls_private_key.rsa.private_key_pem
 }
 # Create AWS ec2 instance
 resource "aws_instance" "myFirstInstance" {
