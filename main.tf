@@ -53,7 +53,7 @@ resource "local_file" "TF_key" {
 resource "aws_instance" "myFirstInstance" {
   ami           = var.ami_id
   instance_type = var.instance_type
-  key_name = TF_Key
+  key_name = aws_key_pair.TF_Key.TF_Key
   security_groups= [var.security_group]
   tags= {
     Name = var.tag_name
