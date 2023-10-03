@@ -58,6 +58,7 @@ resource "aws_instance" "myFirstInstance" {
   tags= {
     Name = var.tag_name
   }
+  user_data = file("script.sh")
 }
 
 # Create Elastic IP address
